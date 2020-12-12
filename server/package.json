@@ -1,0 +1,11 @@
+{
+  "name": "realtime-chat-server",
+  "version": "1.0.0",
+  "description": "The backend system used for communication",
+  "main": "index.js",
+  "scripts": {
+    "start": "nodemon index.js" 
+  },
+  "author": "jimuskin",
+  "license": "ISC"
+}
