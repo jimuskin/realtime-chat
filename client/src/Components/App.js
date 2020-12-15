@@ -8,25 +8,17 @@ import {
 	useParams,
 } from "react-router-dom";
 
+import Home from "./Home/Home";
+
 const App = () => {
 	return (
 		<Router>
-			<div>
-				<nav>
-					<ul>
-						<li>
-							<Link to="/">Home</Link>
-						</li>
-						<li>
-							<Link to="/rooms"> Rooms</Link>
-						</li>
-					</ul>
-				</nav>
-			</div>
-			<h1>URL:</h1>
 			<Switch>
 				<Route path="/:roomId">
 					<Id />
+				</Route>
+				<Route path="/">
+					<Home />
 				</Route>
 			</Switch>
 		</Router>
@@ -36,7 +28,12 @@ const App = () => {
 const Id = () => {
 	let { roomId } = useParams();
 
-	return <h3>ID: {roomId} </h3>;
+	return (
+		<React.Fragment>
+			<Home />
+			<h3>ID: {roomId} </h3>
+		</React.Fragment>
+	);
 };
 
 export default App;
