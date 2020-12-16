@@ -3,7 +3,7 @@ services:
     server:
         container_name: "Server"
         build: "./server"
-        depends_on: 
+        depends_on:
             - mongo
         working_dir: "/app/server"
         volumes:
@@ -38,7 +38,7 @@ services:
     mongo-express:
         container_name: "Mongo-Express"
         image: mongo-express
-        depends_on: 
+        depends_on:
             - mongo
         restart: always
         ports:

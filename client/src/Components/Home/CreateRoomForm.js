@@ -1,31 +1,72 @@
-import React from "react";
+import React, { useState } from "react";
 
 import { TextField, Button, Grid } from "@material-ui/core";
 
 const CreateRoomForm = () => {
+	const [roomDetails, setRoomDetails] = useState({
+		username: "",
+		roomName: "",
+	});
+
+	const handleFormSubmit = (event) => {
+		event.preventDefault();
+		console.log(event);
+		setRoomDetails({
+			username: "",
+			roomName: "",
+		});
+	};
+
 	return (
-		<form
-			style={{
-				paddingTop: 10,
-				paddingBottom: 20,
-				marginLeft: 50,
-				marginRight: 50,
-			}}
-		>
-			<h1>Create Room</h1>
-			<TextField label="Username" /> <br />
-			<TextField label="Room Name" /> <br />
-			<Button
-				variant="contained"
-				color="primary"
-				type="submit"
+		<React.Fragment>
+			<form
 				style={{
-					marginTop: 15,
+					paddingTop: 10,
+					paddingBottom: 20,
+					marginLeft: 50,
+					marginRight: 50,
 				}}
+				onSubmit={handleFormSubmit}
 			>
-				Create
-			</Button>
-		</form>
+				<h1>Create Room</h1>
+				<TextField
+					label="Username"
+					onInput={(e) =>
+						setRoomDetails((prevDetails) => {
+							return {
+								...prevDetails,
+								username: e.target.value,
+							};
+						})
+					}
+				/>{" "}
+				<br />
+				<TextField
+					label="Room Name"
+					onInput={(e) =>
+						setRoomDetails((prevDetails) => {
+							return {
+								...prevDetails,
+								roomName: e.target.value,
+							};
+						})
+					}
+				/>
+				<br />
+				<Button
+					variant="contained"
+					color="primary"
+					type="submit"
+					style={{
+						marginTop: 15,
+					}}
+				>
+					Create
+				</Button>
+			</form>
+			<h1>Form Details:</h1>
+			<p>{JSON.stringify(roomDetails)}</p>
+		</React.Fragment>
 	);
 };
 
