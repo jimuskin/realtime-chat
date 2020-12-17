@@ -10,7 +10,6 @@ const CreateRoomForm = () => {
 
 	const handleFormSubmit = (event) => {
 		event.preventDefault();
-		console.log(event);
 		setRoomDetails({
 			username: "",
 			roomName: "",
@@ -18,7 +17,7 @@ const CreateRoomForm = () => {
 	};
 
 	return (
-		<React.Fragment>
+		<>
 			<form
 				style={{
 					paddingTop: 10,
@@ -40,7 +39,7 @@ const CreateRoomForm = () => {
 							};
 						})
 					}
-				/>{" "}
+				/>
 				<br />
 				<TextField
 					label="Room Name"
@@ -68,7 +67,7 @@ const CreateRoomForm = () => {
 			</form>
 			<h1>Form Details:</h1>
 			<p>{JSON.stringify(roomDetails)}</p>
-		</React.Fragment>
+		</>
 	);
 };
 
