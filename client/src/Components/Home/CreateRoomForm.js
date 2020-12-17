@@ -31,6 +31,7 @@ const CreateRoomForm = () => {
 				<h1>Create Room</h1>
 				<TextField
 					label="Username"
+					value={roomDetails.username}
 					onInput={(e) =>
 						setRoomDetails((prevDetails) => {
 							return {
@@ -43,6 +44,7 @@ const CreateRoomForm = () => {
 				<br />
 				<TextField
 					label="Room Name"
+					value={roomDetails.roomName}
 					onInput={(e) =>
 						setRoomDetails((prevDetails) => {
 							return {
