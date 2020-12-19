@@ -1,6 +1,6 @@
 import React from "react";
 
-const OnlineUser = () => {
+const OnlineUser = (props) => {
 	return (
 		<div
 			style={{
@@ -13,7 +13,7 @@ const OnlineUser = () => {
 					margin: 0,
 				}}
 			>
-				User
+				{props.name}
 			</p>
 		</div>
 	);

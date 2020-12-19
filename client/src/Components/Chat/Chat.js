@@ -58,47 +58,15 @@ const Chat = () => {
 						>
 							Online Users
 						</h1>
-						<OnlineUser />
-						<OnlineUser />
-						<OnlineUser />
-						<OnlineUser />
-						<OnlineUser />
-						<OnlineUser />
-						<OnlineUser />
-						<OnlineUser />
-						<OnlineUser />
-						<OnlineUser />
-						<OnlineUser />
-						<OnlineUser />
-						<OnlineUser />
-						<OnlineUser />
-						<OnlineUser />
-						<OnlineUser />
-						<OnlineUser />
-						<OnlineUser />
-						<OnlineUser />
-						<OnlineUser />
-						<OnlineUser />
-						<OnlineUser />
-						<OnlineUser />
-						<OnlineUser />
-						<OnlineUser />
-						<OnlineUser />
-						<OnlineUser />
-						<OnlineUser />
-						<OnlineUser />
-						<OnlineUser />
-						<OnlineUser />
-						<OnlineUser />
-						<OnlineUser />
-						<OnlineUser />
-						<OnlineUser />
-						<OnlineUser />
-						<OnlineUser />
-						<OnlineUser />
-						<OnlineUser />
-						<OnlineUser />
-						<OnlineUser />
+						<OnlineUser name="User1" />
+						<OnlineUser name="User2" />
+						<OnlineUser name="User3" />
+						<OnlineUser name="User4" />
+						<OnlineUser name="User5" />
+						<OnlineUser name="User6" />
+						<OnlineUser name="User7" />
+						<OnlineUser name="User8" />
+						<OnlineUser name="User9" />
 					</Paper>
 				</Grid>
 			</Grid>
