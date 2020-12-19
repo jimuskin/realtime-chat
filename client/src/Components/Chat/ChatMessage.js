@@ -3,15 +3,13 @@ import React, { useState } from "react";
 const ChatMessage = (props) => {
 	const [hovered, setHovered] = useState(false);
 
-	const handleHover = () => {};
-
 	return (
 		<div
 			style={{
 				border: "1px solid #CDCDCD",
 				paddingLeft: 15,
 				backgroundColor: hovered ? "#A4A4A4" : "",
-				cursor: "pointer",
+				//cursor: "pointer",
 			}}
 			onMouseEnter={() => setHovered(true)}
 			onMouseLeave={() => setHovered(false)}

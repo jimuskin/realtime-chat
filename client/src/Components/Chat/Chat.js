@@ -14,7 +14,6 @@ const Chat = () => {
 			<Grid container spacing={2}>
 				<Grid item xs={12} sm={10}>
 					<Paper
-						noWrap
 						style={{
 							height: "80vh",
 							overflow: "auto",
