@@ -6,6 +6,7 @@ import {
 	OutlinedInput,
 } from "@material-ui/core";
 import ChatMessage from "./ChatMessage";
+import OnlineUser from "./OnlineUser";
 
 const Chat = () => {
 	return (
@@ -48,7 +49,56 @@ const Chat = () => {
 							overflow: "auto",
 						}}
 					>
-						<h1>Online Users</h1>
+						<h1
+							style={{
+								textAlign: "center",
+								borderBottom:
+									"1px solid grey",
+							}}
+						>
+							Online Users
+						</h1>
+						<OnlineUser />
+						<OnlineUser />
+						<OnlineUser />
+						<OnlineUser />
+						<OnlineUser />
+						<OnlineUser />
+						<OnlineUser />
+						<OnlineUser />
+						<OnlineUser />
+						<OnlineUser />
+						<OnlineUser />
+						<OnlineUser />
+						<OnlineUser />
+						<OnlineUser />
+						<OnlineUser />
+						<OnlineUser />
+						<OnlineUser />
+						<OnlineUser />
+						<OnlineUser />
+						<OnlineUser />
+						<OnlineUser />
+						<OnlineUser />
+						<OnlineUser />
+						<OnlineUser />
+						<OnlineUser />
+						<OnlineUser />
+						<OnlineUser />
+						<OnlineUser />
+						<OnlineUser />
+						<OnlineUser />
+						<OnlineUser />
+						<OnlineUser />
+						<OnlineUser />
+						<OnlineUser />
+						<OnlineUser />
+						<OnlineUser />
+						<OnlineUser />
+						<OnlineUser />
+						<OnlineUser />
+						<OnlineUser />
+						<OnlineUser />
 					</Paper>
 				</Grid>
 			</Grid>
