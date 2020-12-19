@@ -21,24 +21,74 @@ const Chat = () => {
 							backgroundColor: "#F1F1F1",
 						}}
 					>
-						<ChatMessage />
-						<ChatMessage />
-						<ChatMessage />
-						<ChatMessage />
-						<ChatMessage />
-						<ChatMessage />
-						<ChatMessage />
-						<ChatMessage />
-						<ChatMessage />
-						<ChatMessage />
-						<ChatMessage />
-						<ChatMessage />
-						<ChatMessage />
-						<ChatMessage />
-						<ChatMessage />
-						<ChatMessage />
-						<ChatMessage />
-						<ChatMessage />
+						<ChatMessage
+							name="Username"
+							message="This is a message."
+						/>
+						<ChatMessage
+							name="Username"
+							message="This is a message."
+						/>
+						<ChatMessage
+							name="Username"
+							message="This is a message."
+						/>
+						<ChatMessage
+							name="Username"
+							message="This is a message."
+						/>
+						<ChatMessage
+							name="Username"
+							message="This is a message."
+						/>
+						<ChatMessage
+							name="Username"
+							message="This is a message."
+						/>
+						<ChatMessage
+							name="Username"
+							message="This is a message."
+						/>
+						<ChatMessage
+							name="Username"
+							message="This is a message."
+						/>
+						<ChatMessage
+							name="Username"
+							message="This is a message."
+						/>
+						<ChatMessage
+							name="Username"
+							message="This is a message."
+						/>
+						<ChatMessage
+							name="Username"
+							message="This is a message."
+						/>
+						<ChatMessage
+							name="Username"
+							message="This is a message."
+						/>
+						<ChatMessage
+							name="Username"
+							message="This is a message."
+						/>
+						<ChatMessage
+							name="Username"
+							message="This is a message."
+						/>
+						<ChatMessage
+							name="Username"
+							message="This is a message."
+						/>
+						<ChatMessage
+							name="Username"
+							message="This is a message."
+						/>
+						<ChatMessage
+							name="Jimmy"
+							message="This is a message."
+						/>
 					</Paper>
 				</Grid>
 

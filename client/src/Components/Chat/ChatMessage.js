@@ -24,7 +24,7 @@ const ChatMessage = (props) => {
 					fontWeight: "bold",
 				}}
 			>
-				Username:
+				{props.name}:
 			</p>
 			<p
 				style={{
@@ -33,11 +33,7 @@ const ChatMessage = (props) => {
 					fontSize: 16,
 				}}
 			>
-				dsnjgk dsnfjksdnfjksdnfjksdnfjksdnfsdkjfn
-				jsdkf ndsjkfnsd jkfn dskjfnsdkjfsdkjf
-				skjfjkfdnjkds fjkndsf jkndsf jkndf jkndsf
-				jnds fjkds fjksdnf fkjdns dfsn jkfnjkdsf
-				nsdjk fnsdjkThis is a message.
+				{props.message}
 			</p>
 		</div>
 	);
