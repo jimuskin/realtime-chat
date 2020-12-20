@@ -62,12 +62,13 @@ const JoinRoomForm = () => {
 					style={{
 						marginTop: 15,
 					}}
+					onClick={() =>
+						alert(JSON.stringify(roomDetails))
+					}
 				>
 					Submit
 				</Button>
 			</form>
-			<h1>Form Details:</h1>
-			<p>{JSON.stringify(roomDetails)}</p>
 		</>
 	);
 };

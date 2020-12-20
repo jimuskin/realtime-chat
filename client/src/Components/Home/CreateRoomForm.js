@@ -61,12 +61,13 @@ const CreateRoomForm = () => {
 					style={{
 						marginTop: 15,
 					}}
+					onClick={() =>
+						alert(JSON.stringify(roomDetails))
+					}
 				>
 					Create
 				</Button>
 			</form>
-			<h1>Form Details:</h1>
-			<p>{JSON.stringify(roomDetails)}</p>
 		</>
 	);
 };
