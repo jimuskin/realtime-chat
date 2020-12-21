@@ -5,6 +5,7 @@ services:
         build: "./server"
         depends_on:
             - mongo
+            - redis
         working_dir: "/app/server"
         volumes:
             - "./server:/app/server:cached"
@@ -46,3 +47,10 @@ services:
         environment:
             ME_CONFIG_MONGODB_ADMINUSERNAME: localhost
             ME_CONFIG_MONGODB_ADMINPASSWORD: password
+    redis:
+        container_name: "Redis"
+        image: "redis"
+        volumes:
+            - "./app/redis:/data"
+        ports:
+            - "6000:6379"
