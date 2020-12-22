@@ -30,32 +30,22 @@ redisClient.on("error", () => {
 });
 
 //Mongo
-const MongoClient = require("mongodb").MongoClient;
+const mongoose = require("mongoose");
 
 const url =
 	process.env.MONGODB_URI || "mongodb://localhost:27017";
 
-MongoClient.connect(
-	url,
-	{
+mongoose
+	.connect(url, {
+		useNewUrlParser: true,
 		useUnifiedTopology: true,
-	},
-	(err, db) => {
-		if (err) {
-			console.log(`Error found: ${err}`);
-		} else {
-			db.db()
-				.admin()
-				.listDatabases()
-				.then((dbs) => {
-					console.log(
-						`Databases: ${JSON.stringify(dbs)}`
-					);
-				});
-			console.log("Connected.");
-		}
-	}
-);
+	})
+	.then(() => {
+		console.log("Logged in.");
+	})
+	.catch((err) => {
+		console.log(`Error Found: ${err}`);
+	});
 
 const roomRoutes = require("./routes/roomRoutes");
 
