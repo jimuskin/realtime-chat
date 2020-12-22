@@ -1,20 +1,34 @@
 const app = require("express")();
 
 const redis = require("redis");
-const client = redis.createClient(6000, "192.168.205.145");
 
-client.on("connect", () => {
+const redisConnection = {
+	ip: process.env.REDIS_IP || "localhost",
+	port: process.env.REDIS_PORT || 6000,
+};
+
+const redisClient = redis.createClient(
+	redisConnection.port,
+	redisConnection.ip
+);
+
+const roomRoutes = require("./routes/roomRoutes");
+
+redisClient.on("connect", () => {
 	console.log("Connected to redis server.");
-	client.get("login", (err, reply) => {
+	redisClient.get("login", (err, reply) => {
 		const loginAttempts = reply ? reply : 0;
 
 		console.log(`Connected ${loginAttempts} times.`);
 
-		client.set("login", parseInt(loginAttempts) + 1);
+		redisClient.set(
+			"login",
+			parseInt(loginAttempts) + 1
+		);
 	});
 });
 
-client.on("error", () => {
+redisClient.on("error", () => {
 	console.log("An error occurred");
 });
 
@@ -22,8 +36,21 @@ app.get("/", (req, res) => {
 	res.json({ message: "its working!" });
 });
 
+app.use("/room", roomRoutes);
+
 const port = process.env.PORT || 8080;
 
 app.listen(port, () =>
 	console.log(`App is listening on port ${port}`)
 );
+
+//On client get room
+//Connect to database to locate room details.
+// - Connect to mongo to see if room with ID exists, and get all relevant details of room
+// - Connect to redis to get a list of all the previous messages sent.
+//If don't exist return 404
+//If exist, respond with room details, and open socketio connection to room ID (if not exists).
+
+//On client disconnect
+//Check room user count
+//If users = 0, then close socketio connection.

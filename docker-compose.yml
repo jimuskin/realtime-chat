@@ -11,6 +11,8 @@ services:
             - "./server:/app/server:cached"
         ports:
             - "8080:8080"
+        env_file:
+            - "./server/.env"
         restart: always
         command: sh -c "npm install && npm start"
     client:
