@@ -2,8 +2,8 @@ import React from "react";
 
 import Chat from "../Components/Chat/Chat";
 
-const HomeRouter = () => {
+const ChatRouter = () => {
 	return <Chat />;
 };
 
-export default HomeRouter;
+export default ChatRouter;
