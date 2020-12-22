@@ -6,6 +6,9 @@ services:
         depends_on:
             - mongo
             - redis
+        links:
+            - mongo
+            - redis
         working_dir: "/app/server"
         volumes:
             - "./server:/app/server:cached"
@@ -36,8 +39,6 @@ services:
             MONGO_INITDB_ROOT_PASSWORD: password
         volumes:
             - "./app/mongo-volume:/data/db"
-        ports:
-            - 27017:27017
     mongo-express:
         container_name: "Mongo-Express"
         image: mongo-express
@@ -52,7 +53,8 @@ services:
     redis:
         container_name: "Redis"
         image: "redis"
+        restart: "always"
         volumes:
             - "./app/redis:/data"
         ports:
-            - "6000:6379"
+            - "6379:6379"

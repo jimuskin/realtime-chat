@@ -1,19 +1,16 @@
 const app = require("express")();
 
+//Redis
 const redis = require("redis");
-
 const redisConnection = {
 	ip: process.env.REDIS_IP || "localhost",
-	port: process.env.REDIS_PORT || 6000,
+	port: process.env.REDIS_PORT || 6379,
 };
 
 const redisClient = redis.createClient(
 	redisConnection.port,
 	redisConnection.ip
 );
-
-const roomRoutes = require("./routes/roomRoutes");
-
 redisClient.on("connect", () => {
 	console.log("Connected to redis server.");
 	redisClient.get("login", (err, reply) => {
@@ -31,6 +28,36 @@ redisClient.on("connect", () => {
 redisClient.on("error", () => {
 	console.log("An error occurred");
 });
+
+//Mongo
+const MongoClient = require("mongodb").MongoClient;
+
+const url =
+	process.env.MONGODB_URI || "mongodb://localhost:27017";
+
+MongoClient.connect(
+	url,
+	{
+		useUnifiedTopology: true,
+	},
+	(err, db) => {
+		if (err) {
+			console.log(`Error found: ${err}`);
+		} else {
+			db.db()
+				.admin()
+				.listDatabases()
+				.then((dbs) => {
+					console.log(
+						`Databases: ${JSON.stringify(dbs)}`
+					);
+				});
+			console.log("Connected.");
+		}
+	}
+);
+
+const roomRoutes = require("./routes/roomRoutes");
 
 app.get("/", (req, res) => {
 	res.json({ message: "its working!" });
