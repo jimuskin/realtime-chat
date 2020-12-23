@@ -7,11 +7,14 @@ const connectionDetails = {
 	useUnifiedTopology: true,
 };
 
-const AddLobby = async (lobbyDetails) => {
-	mongoose.connect(
-		`${process.env.MONGODB_URI}/lobbies?authSource=admin`,
-		connectionDetails
-	);
+const AddLobby = async (lobbyDetails, callback) => {
+	if (!lobbyDetails.id) {
+		console.log("LobbyDetails id not defined.");
+	}
+
+	if (!lobbyDetails.name) {
+		console.log("LobbyDetails name not defined.");
+	}
 
 	let db = mongoose.connection;
 	db.on(
@@ -19,44 +22,21 @@ const AddLobby = async (lobbyDetails) => {
 		console.error.bind(console, `Connection Error:`)
 	);
 
-	db.once("open", () => {
-		const Lobby = mongoose.model("lobby", lobbySchema);
-
-		const LobbyData = new Lobby({
-			lobbyID: lobbyDetails.id,
-			lobbyName: lobbyDetails.name,
-		});
-
-		LobbyData.save((err, lobbyData) => {
-			if (err) return console.error(err);
-
-			console.log(
-				`Should be pushing lobby data: ${JSON.stringify(
-					lobbyDetails
-				)}`
-			);
-		});
-	});
-};
-
-const Connect = async () => {
-	mongoose.connect(
-		process.env.MONGODB_URI,
-		connectionDetails
-	);
-
-	let db = mongoose.connection;
-
-	db.once("open", () => {
-		console.log(`Connection to db successful!`);
+	// db.once("open", () => {
+	const LobbyData = new lobbySchema({
+		lobbyID: lobbyDetails.id,
+		lobbyName: lobbyDetails.name,
 	});
 
-	db.on("error", (error) => {
-		console.log(`An error occurred: ${error}`);
+	LobbyData.save((err, lobbyData) => {
+		//db.close();
+
+		if (err) console.error(err);
+		callback(err, lobbyData);
 	});
+	// });
 };
 
 module.exports = {
-	Connect: Connect,
 	AddLobby: AddLobby,
 };

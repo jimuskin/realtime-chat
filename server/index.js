@@ -1,5 +1,12 @@
 const app = require("express")();
 
+const bodyParser = require("body-parser");
+
+const mongoose = require("mongoose");
+const connectionDetails = {
+	useNewUrlParser: true,
+	useUnifiedTopology: true,
+};
 const MongoManager = require("./Mongo/mongoManager");
 
 //Redis
@@ -31,10 +38,20 @@ redisClient.on("error", () => {
 	console.log("An error occurred");
 });
 
-//Mongo
-MongoManager.AddLobby({ id: "MFSDKL", name: "Foo" });
+//Mongo.
+mongoose.connect(
+	`${process.env.MONGODB_URI}/lobbies?authSource=admin`,
+	connectionDetails
+);
+
+mongoose.connection.once("open", () => {
+	console.log("Mongo Connected");
+});
 
 const roomRoutes = require("./routes/roomRoutes");
+
+app.use(bodyParser.urlencoded({ extended: false }));
+app.use(bodyParser.json());
 
 app.get("/", (req, res) => {
 	res.json({ message: "its working!" });

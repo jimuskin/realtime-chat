@@ -1,3 +1,5 @@
+const mongoose = require("mongoose");
+
 const schema = {
 	lobbyID: {
 		type: String,
@@ -9,4 +11,4 @@ const schema = {
 	},
 };
 
-module.exports = schema;
+module.exports = mongoose.model("lobbyDetails", schema);
