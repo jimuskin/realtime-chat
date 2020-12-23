@@ -1,5 +1,7 @@
 const app = require("express")();
 
+const MongoManager = require("./Mongo/mongoManager");
+
 //Redis
 const redis = require("redis");
 const redisConnection = {
@@ -30,22 +32,7 @@ redisClient.on("error", () => {
 });
 
 //Mongo
-const mongoose = require("mongoose");
-
-const url =
-	process.env.MONGODB_URI || "mongodb://localhost:27017";
-
-mongoose
-	.connect(url, {
-		useNewUrlParser: true,
-		useUnifiedTopology: true,
-	})
-	.then(() => {
-		console.log("Logged in.");
-	})
-	.catch((err) => {
-		console.log(`Error Found: ${err}`);
-	});
+MongoManager.AddLobby({ id: "MFSDKL", name: "Foo" });
 
 const roomRoutes = require("./routes/roomRoutes");
 
