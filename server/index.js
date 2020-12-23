@@ -2,68 +2,55 @@ const app = require("express")();
 
 const bodyParser = require("body-parser");
 
-const mongoose = require("mongoose");
-const connectionDetails = {
-	useNewUrlParser: true,
-	useUnifiedTopology: true,
+const setupExpress = require("./setup/setupExpress");
+const setupMongo = require("./setup/setupMongo");
+const setupRedis = require("./setup/setupRedis");
+
+// app.use(bodyParser.urlencoded({ extended: false }));
+// app.use(bodyParser.json());
+
+// app.get("/", (req, res) => {
+// 	res.json({ message: "its working!" });
+// });
+
+// app.use("/room", roomRoutes);
+
+// const port = process.env.PORT || 8080;
+
+// app.listen(port, () =>
+// 	console.log(`App is listening on port ${port}`)
+// );
+
+const setupServer = async () => {
+	console.log("Initiating the setup sequence.");
+
+	//Set up mongoDB connection.
+	let mongoSuccess = await setupMongo();
+	console.log(`Setup Mongo Success? ${mongoSuccess}`);
+
+	//Set up Redis connection.
+	let redisSuccess = await setupRedis();
+	console.log(`Setup Redis Success? ${redisSuccess}`);
+
+	return mongoSuccess && redisSuccess;
 };
-const MongoManager = require("./Mongo/mongoManager");
 
-//Redis
-const redis = require("redis");
-const redisConnection = {
-	ip: process.env.REDIS_IP || "localhost",
-	port: process.env.REDIS_PORT || 6379,
-};
+setupServer()
+	.then((success) => {
+		if (success) {
+			console.log(
+				`Server components all loaded! Starting the express server.`
+			);
 
-const redisClient = redis.createClient(
-	redisConnection.port,
-	redisConnection.ip
-);
-redisClient.on("connect", () => {
-	console.log("Connected to redis server.");
-	redisClient.get("login", (err, reply) => {
-		const loginAttempts = reply ? reply : 0;
-
-		console.log(`Connected ${loginAttempts} times.`);
-
-		redisClient.set(
-			"login",
-			parseInt(loginAttempts) + 1
+			setupExpress();
+		}
+	})
+	.catch((error) => {
+		console.log(
+			`An Error has occurred. Express server will not run.`
 		);
+		console.log(error);
 	});
-});
-
-redisClient.on("error", () => {
-	console.log("An error occurred");
-});
-
-//Mongo.
-mongoose.connect(
-	`${process.env.MONGODB_URI}/lobbies?authSource=admin`,
-	connectionDetails
-);
-
-mongoose.connection.once("open", () => {
-	console.log("Mongo Connected");
-});
-
-const roomRoutes = require("./routes/roomRoutes");
-
-app.use(bodyParser.urlencoded({ extended: false }));
-app.use(bodyParser.json());
-
-app.get("/", (req, res) => {
-	res.json({ message: "its working!" });
-});
-
-app.use("/room", roomRoutes);
-
-const port = process.env.PORT || 8080;
-
-app.listen(port, () =>
-	console.log(`App is listening on port ${port}`)
-);
 
 //On client get room
 //Connect to database to locate room details.

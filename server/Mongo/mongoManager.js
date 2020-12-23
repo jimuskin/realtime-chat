@@ -21,8 +21,6 @@ const AddLobby = async (lobbyDetails, callback) => {
 		"error",
 		console.error.bind(console, `Connection Error:`)
 	);
-
-	// db.once("open", () => {
 	const LobbyData = new lobbySchema({
 		lobbyID: lobbyDetails.id,
 		lobbyName: lobbyDetails.name,
@@ -34,7 +32,6 @@ const AddLobby = async (lobbyDetails, callback) => {
 		if (err) console.error(err);
 		callback(err, lobbyData);
 	});
-	// });
 };
 
 module.exports = {
