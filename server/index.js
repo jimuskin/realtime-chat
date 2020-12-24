@@ -5,21 +5,7 @@ const bodyParser = require("body-parser");
 const setupExpress = require("./setup/setupExpress");
 const setupMongo = require("./setup/setupMongo");
 const setupRedis = require("./setup/setupRedis");
-
-// app.use(bodyParser.urlencoded({ extended: false }));
-// app.use(bodyParser.json());
-
-// app.get("/", (req, res) => {
-// 	res.json({ message: "its working!" });
-// });
-
-// app.use("/room", roomRoutes);
-
-// const port = process.env.PORT || 8080;
-
-// app.listen(port, () =>
-// 	console.log(`App is listening on port ${port}`)
-// );
+const setupSocketIO = require("./setup/setupSocketIO");
 
 const setupServer = async () => {
 	console.log("Initiating the setup sequence.");
@@ -32,17 +18,17 @@ const setupServer = async () => {
 	let redisSuccess = await setupRedis();
 	console.log(`Setup Redis Success? ${redisSuccess}`);
 
-	return mongoSuccess && redisSuccess;
+	let server = await setupExpress();
+
+	//await setupSocketIO(server);
+
+	return true;
 };
 
 setupServer()
 	.then((success) => {
 		if (success) {
-			console.log(
-				`Server components all loaded! Starting the express server.`
-			);
-
-			setupExpress();
+			console.log(`Server successfully started.`);
 		}
 	})
 	.catch((error) => {
