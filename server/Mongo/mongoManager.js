@@ -15,20 +15,12 @@ const AddLobby = async (lobbyDetails, callback) => {
 	if (!lobbyDetails.name) {
 		console.log("LobbyDetails name not defined.");
 	}
-
-	let db = mongoose.connection;
-	db.on(
-		"error",
-		console.error.bind(console, `Connection Error:`)
-	);
 	const LobbyData = new lobbySchema({
 		lobbyID: lobbyDetails.id,
 		lobbyName: lobbyDetails.name,
 	});
 
 	LobbyData.save((err, lobbyData) => {
-		//db.close();
-
 		if (err) console.error(err);
 		callback(err, lobbyData);
 	});
