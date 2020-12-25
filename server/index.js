@@ -7,6 +7,8 @@ const setupMongo = require("./setup/setupMongo");
 const setupRedis = require("./setup/setupRedis");
 const setupSocketIO = require("./setup/setupSocketIO");
 
+const SocketIOManager = require("./socketio/SocketIOManager");
+
 const setupServer = async () => {
 	console.log("Initiating the setup sequence.");
 
@@ -20,7 +22,9 @@ const setupServer = async () => {
 
 	let server = await setupExpress();
 
-	//await setupSocketIO(server);
+	let socketIO = await setupSocketIO(server);
+
+	SocketIOManager.io = socketIO;
 
 	return true;
 };

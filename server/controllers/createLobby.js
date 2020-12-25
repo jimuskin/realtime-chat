@@ -1,6 +1,7 @@
-const mongoManager = require("../Mongo/mongoManager");
+const mongoManager = require("../mongo/MongoManager");
 
 const randomstring = require("randomstring");
+const SocketIOManager = require("../socketio/SocketIOManager");
 
 const createLobby = async (req, res) => {
 	const roomName = req.body.roomName || "Default Room";
@@ -19,6 +20,11 @@ const createLobby = async (req, res) => {
 				});
 				return;
 			}
+
+			SocketIOManager.emitMessage(
+				lobbyData.lobbyID,
+				`Created Lobby (ID: ${lobbyData.lobbyName})`
+			);
 
 			return res.status(200).json({
 				data: lobbyData,

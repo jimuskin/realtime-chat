@@ -1,15 +1,17 @@
 const port = process.env.PORT || 8080;
-const io = require("socket.io");
+const socketio = require("socket.io");
+
+const socketIOConnection = require("../socketio/socketIOConnection");
 
 const setupSocketIO = async (server) => {
 	return new Promise((resolve, reject) => {
-		const socket = io(server, {});
+		const io = socketIOConnection.init(server, {});
 
-		socket.on("error", (error) => {
+		io.on("error", (error) => {
 			reject(error);
 		});
 
-		resolve(socket);
+		resolve(true);
 	});
 };
 
