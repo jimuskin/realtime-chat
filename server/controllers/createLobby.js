@@ -1,36 +1,34 @@
-const mongoManager = require("../mongo/MongoManager");
-
 const randomstring = require("randomstring");
-const SocketIOManager = require("../socketio/SocketIOManager");
+const SocketIOManager = require("../socketio/socketIOManager");
 
-const createLobby = async (req, res) => {
-	const roomName = req.body.roomName || "Default Room";
+const lobbySchema = require("../mongo/Schemas/lobbySchema");
 
-	let lobbyDetails = {
-		id: randomstring.generate(6),
-		name: roomName,
-	};
+const createLobby = (req, res) => {
+	const name = req.body.roomName || "Default Room";
+	const id = randomstring.generate(6);
 
-	mongoManager.AddLobby(
-		lobbyDetails,
-		(err, lobbyData) => {
-			if (err) {
-				res.status(err.status).json({
-					error: err,
-				});
-				return;
-			}
+	const LobbyData = new lobbySchema({
+		lobbyID: id,
+		lobbyName: name,
+	});
 
-			SocketIOManager.emitMessage(
-				lobbyData.lobbyID,
-				`Created Lobby (ID: ${lobbyData.lobbyName})`
-			);
-
-			return res.status(200).json({
-				data: lobbyData,
+	LobbyData.save((err, lobbyData) => {
+		if (err) {
+			res.status(err.status).json({
+				error: err,
 			});
+			return;
 		}
-	);
+
+		SocketIOManager.emitMessage(
+			lobbyData.lobbyID,
+			`Created Lobby (ID: ${lobbyData.lobbyName})`
+		);
+
+		return res.status(200).json({
+			data: lobbyData,
+		});
+	});
 };
 
 module.exports = createLobby;
