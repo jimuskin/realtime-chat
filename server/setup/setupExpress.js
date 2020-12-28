@@ -13,6 +13,21 @@ const setupExpress = () => {
 		app.use(bodyParser.urlencoded({ extended: false }));
 		app.use(bodyParser.json());
 
+		//Allow CORS.
+		app.use((req, res, next) => {
+			res.header("Access-Control-Allow-Origin", "*");
+			res.header(
+				"Access-Control-Allow-Methods",
+				"GET,PUT,POST,DELETE"
+			);
+			res.header(
+				"Access-Control-Allow-Headers",
+				"Content-Type"
+			);
+
+			next();
+		});
+
 		app.use("/room", roomRoutes);
 
 		app.get("/", (req, res) => {

@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 
 import {
 	Grid,
@@ -9,6 +9,20 @@ import ChatMessage from "./ChatMessage";
 import OnlineUser from "./OnlineUser";
 
 const Chat = () => {
+	useEffect(() => {
+		//Ping the server for room details.
+		//If 404, then route to error.
+		//If details exist, then get full details
+		//Then get room ID and make socketio connection to room ID.
+		//
+
+		fetch(
+			`http://${process.env.REACT_APP_EXPRESS_SERVER_URL}/room/join/qdDnId`
+		)
+			.then((response) => response.json())
+			.then((data) => console.log(data));
+	});
+
 	return (
 		<div style={{ padding: 15 }}>
 			<Grid container spacing={2}>
