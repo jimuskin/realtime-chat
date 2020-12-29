@@ -1,14 +1,14 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
+import { Redirect } from "react-router-dom";
 
-import {
-	Grid,
-	Paper,
-	OutlinedInput,
-} from "@material-ui/core";
-import ChatMessage from "./ChatMessage";
-import OnlineUser from "./OnlineUser";
+import ChatContainer from "./ChatContainer";
 
-const Chat = () => {
+const Chat = (props) => {
+	const [roomData, setRoomData] = useState({
+		connected: false,
+		valid: false,
+	});
+
 	useEffect(() => {
 		//Ping the server for room details.
 		//If 404, then route to error.
@@ -17,124 +17,38 @@ const Chat = () => {
 		//
 
 		fetch(
-			`http://${process.env.REACT_APP_EXPRESS_SERVER_URL}/room/join/qdDnId`
+			`http://${process.env.REACT_APP_EXPRESS_SERVER_URL}/room/join/${props.roomId}`
 		)
-			.then((response) => response.json())
-			.then((data) => console.log(data));
-	});
+			.then((response) => {
+				if (!response.ok) {
+					throw new Error(response.status);
+				} else {
+					return response.json();
+				}
+			})
+			.then((data) => {
+				setRoomData((roomData) => {
+					return {
+						valid: true,
+						connected: true,
+					};
+				});
+			})
+			.catch((err) => {
+				setRoomData((roomData) => {
+					return {
+						valid: false,
+						connected: true,
+					};
+				});
+			});
+	}, []);
 
-	return (
-		<div style={{ padding: 15 }}>
-			<Grid container spacing={2}>
-				<Grid item xs={12} sm={10}>
-					<Paper
-						style={{
-							height: "80vh",
-							overflow: "auto",
-							backgroundColor: "#F1F1F1",
-						}}
-					>
-						<ChatMessage
-							name="Username"
-							message="This is a message."
-						/>
-						<ChatMessage
-							name="Username"
-							message="This is a message."
-						/>
-						<ChatMessage
-							name="Username"
-							message="This is a message."
-						/>
-						<ChatMessage
-							name="Username"
-							message="This is a message."
-						/>
-						<ChatMessage
-							name="Username"
-							message="This is a message."
-						/>
-						<ChatMessage
-							name="Username"
-							message="This is a message."
-						/>
-						<ChatMessage
-							name="Username"
-							message="This is a message."
-						/>
-						<ChatMessage
-							name="Username"
-							message="This is a message."
-						/>
-						<ChatMessage
-							name="Username"
-							message="This is a message."
-						/>
-						<ChatMessage
-							name="Username"
-							message="This is a message."
-						/>
-						<ChatMessage
-							name="Username"
-							message="This is a message."
-						/>
-						<ChatMessage
-							name="Username"
-							message="This is a message."
-						/>
-						<ChatMessage
-							name="Username"
-							message="This is a message."
-						/>
-						<ChatMessage
-							name="Username"
-							message="This is a message."
-						/>
-						<ChatMessage
-							name="Username"
-							message="This is a message."
-						/>
-						<ChatMessage
-							name="Username"
-							message="This is a message."
-						/>
-						<ChatMessage
-							name="Jimmy"
-							message="This is a message."
-						/>
-					</Paper>
-				</Grid>
-
-				<Grid item xs={12} sm={2}>
-					<Paper
-						style={{
-							height: "80vh",
-							overflow: "auto",
-						}}
-					>
-						<h1
-							style={{
-								textAlign: "center",
-								borderBottom:
-									"1px solid grey",
-							}}
-						>
-							Online Users
-						</h1>
-						<OnlineUser name="User1" />
-						<OnlineUser name="User2" />
-						<OnlineUser name="User3" />
-						<OnlineUser name="User4" />
-						<OnlineUser name="User5" />
-						<OnlineUser name="User6" />
-						<OnlineUser name="User7" />
-						<OnlineUser name="User8" />
-						<OnlineUser name="User9" />
-					</Paper>
-				</Grid>
-			</Grid>
-		</div>
-	);
+	if (!roomData.valid && roomData.connected) {
+		return <Redirect to="/" />;
+	} else {
+		return <ChatContainer />;
+	}
 };
 
 export default Chat;

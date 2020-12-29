@@ -4,7 +4,7 @@ import {
 	BrowserRouter as Router,
 	Switch,
 	Route,
-	useParams,
+	Redirect,
 } from "react-router-dom";
 
 import HomeRouter from "../Routers/HomeRouter";
@@ -14,8 +14,11 @@ const RouterController = () => {
 	return (
 		<Router>
 			<Switch>
-				<Route path="/room">
+				<Route path="/room/:roomId">
 					<ChatRouter />
+				</Route>
+				<Route path="/room">
+					<Redirect to="/" />
 				</Route>
 				<Route path="/">
 					<HomeRouter />
