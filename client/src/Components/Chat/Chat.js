@@ -7,6 +7,7 @@ const Chat = (props) => {
 	const [roomData, setRoomData] = useState({
 		connected: false,
 		valid: false,
+		lobbyDetails: null,
 	});
 
 	useEffect(() => {
@@ -31,6 +32,7 @@ const Chat = (props) => {
 					return {
 						valid: true,
 						connected: true,
+						lobbyDetails: data,
 					};
 				});
 			})
@@ -47,7 +49,7 @@ const Chat = (props) => {
 	if (!roomData.valid && roomData.connected) {
 		return <Redirect to="/" />;
 	} else {
-		return <ChatContainer />;
+		return <ChatContainer data={roomData} />;
 	}
 };
 
