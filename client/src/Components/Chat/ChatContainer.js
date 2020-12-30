@@ -2,30 +2,19 @@ import { Grid, Paper } from "@material-ui/core";
 import ChatMessage from "./ChatMessage";
 import OnlineUser from "./OnlineUser";
 import { useEffect, useState } from "react";
+import socketio from "socket.io-client";
 
 const ChatContainer = (props) => {
-	const [messages, setMessages] = useState();
+	const [messages, setMessages] = useState([]);
 
 	useEffect(() => {
-		setMessages([
-			{
-				name: "Jimmy",
-				message: "This is test message 1",
-			},
-			{
-				name: "Pete",
-				message: "This is test message 2.",
-			},
-		]);
+		const socket = socketio(
+			process.env.REACT_APP_EXPRESS_SERVER_URL
+		);
 
-		setTimeout(() => {
-			for (let i = 0; i < 100; i++) {
-				addChatItem(
-					`User ${i}`,
-					`This is message ID ${i}`
-				);
-			}
-		}, 1000);
+		socket.on("message", (data) => {
+			addChatItem(data.name, data.message);
+		});
 	}, []);
 
 	const addChatItem = (name, message) => {
