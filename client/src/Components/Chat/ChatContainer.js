@@ -8,14 +8,27 @@ const ChatContainer = (props) => {
 	const [messages, setMessages] = useState([]);
 
 	useEffect(() => {
-		const socket = socketio(
-			process.env.REACT_APP_EXPRESS_SERVER_URL
-		);
+		if (props.data.valid) {
+			const socket = socketio(
+				process.env.REACT_APP_EXPRESS_SERVER_URL
+			);
+			let lobbyData = props.data.lobbyDetails.data[0];
 
-		socket.on("message", (data) => {
-			addChatItem(data.name, data.message);
-		});
-	}, []);
+			let username = prompt("Username");
+
+			socket.emit("lobby_connect", {
+				lobbyID: lobbyData.lobbyID,
+				username: username,
+			});
+
+			socket.on("message", (data) => {
+				addChatItem(data.name, data.message);
+			});
+
+			//Disconnect the socket when the component unmounts.
+			return () => socket.disconnect();
+		}
+	}, [props.data.valid]);
 
 	const addChatItem = (name, message) => {
 		setMessages((prevMessage) => {
