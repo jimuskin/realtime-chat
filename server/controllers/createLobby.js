@@ -1,5 +1,4 @@
 const randomstring = require("randomstring");
-const SocketIOManager = require("../socketio/socketIOManager");
 
 const lobbySchema = require("../mongo/Schemas/lobbySchema");
 
@@ -19,11 +18,6 @@ const createLobby = (req, res) => {
 			});
 			return;
 		}
-
-		SocketIOManager.emitMessage(
-			lobbyData.lobbyID,
-			`Created Lobby (ID: ${lobbyData.lobbyName})`
-		);
 
 		return res.status(200).json({
 			data: lobbyData,
