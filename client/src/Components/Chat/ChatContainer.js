@@ -1,6 +1,13 @@
-import { Grid, Paper } from "@material-ui/core";
+import {
+	Grid,
+	Paper,
+	TextField,
+	Button,
+} from "@material-ui/core";
 import ChatMessage from "./ChatMessage";
 import OnlineUser from "./OnlineUser";
+import MessageBar from "./MessageBar";
+
 import { useEffect, useState } from "react";
 import socketio from "socket.io-client";
 
@@ -85,6 +92,8 @@ const ChatContainer = (props) => {
 							);
 						})}
 					</Paper>
+
+					<MessageBar />
 				</Grid>
 
 				<Grid item xs={12} sm={2}>
