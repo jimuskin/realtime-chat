@@ -1,5 +1,4 @@
 const port = process.env.PORT || 8080;
-const socketIOConnection = require("./socketIOConnection");
 
 const lobbyConnectEvent = require("./events/lobbyConnectEvent");
 const lobbyDisconnectEvent = require("./events/lobbyDisconnectEvent");

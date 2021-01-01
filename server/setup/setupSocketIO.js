@@ -1,12 +1,11 @@
 const port = process.env.PORT || 8080;
 const socketio = require("socket.io");
 
-const socketIOConnection = require("../socketio/socketIOConnection");
 const socketIOEventEmitter = require("../socketio/socketIOEventEmitter");
 
 const setupSocketIO = async (server) => {
 	return new Promise((resolve, reject) => {
-		const io = socketIOConnection.init(server, {
+		const io = socketio(server, {
 			cors: {
 				origin: "*",
 				methods: ["GET", "POST"],
