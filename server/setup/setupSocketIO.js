@@ -1,7 +1,7 @@
 const port = process.env.PORT || 8080;
 const socketio = require("socket.io");
 
-const socketIOEventEmitter = require("../socketio/socketIOEventEmitter");
+const socketIOEventHandler = require("../socketio/socketIOEventHandler");
 
 const setupSocketIO = async (server) => {
 	return new Promise((resolve, reject) => {
@@ -16,7 +16,7 @@ const setupSocketIO = async (server) => {
 			reject(error);
 		});
 
-		socketIOEventEmitter(io);
+		socketIOEventHandler(io);
 		resolve(true);
 	});
 };
