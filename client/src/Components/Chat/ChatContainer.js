@@ -12,16 +12,19 @@ import { useEffect, useState } from "react";
 import socketio from "socket.io-client";
 
 const ChatContainer = (props) => {
+	let socket;
 	const [messages, setMessages] = useState([]);
+	const [users, setUsers] = useState([]);
 
 	useEffect(() => {
 		if (props.data.valid) {
-			const socket = socketio(
+			socket = socketio(
 				process.env.REACT_APP_EXPRESS_SERVER_URL
 			);
 			let lobbyData = props.data.lobbyDetails.data[0];
 
-			let username = prompt("Username");
+			let username =
+				prompt("Username") || "Anonymous";
 
 			socket.emit("lobby_connect", {
 				lobbyID: lobbyData.lobbyID,
@@ -30,6 +33,10 @@ const ChatContainer = (props) => {
 
 			socket.on("message", (data) => {
 				addChatItem(data.name, data.message);
+			});
+
+			socket.on("online_users", (data) => {
+				setUsers(data);
 			});
 
 			//Disconnect the socket when the component unmounts.
@@ -112,15 +119,14 @@ const ChatContainer = (props) => {
 						>
 							Online Users
 						</h1>
-						<OnlineUser name="User1" />
-						<OnlineUser name="User2" />
-						<OnlineUser name="User3" />
-						<OnlineUser name="User4" />
-						<OnlineUser name="User5" />
-						<OnlineUser name="User6" />
-						<OnlineUser name="User7" />
-						<OnlineUser name="User8" />
-						<OnlineUser name="User9" />
+						{users.map((user, id) => {
+							return (
+								<OnlineUser
+									key={`user-id-${id}`}
+									name={user}
+								/>
+							);
+						})}
 					</Paper>
 				</Grid>
 			</Grid>
