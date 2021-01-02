@@ -11,8 +11,10 @@ import MessageBar from "./MessageBar";
 import { useEffect, useState } from "react";
 import socketio from "socket.io-client";
 
+//Socket which will be initialized in useEffect. Used to emit messages.
+var socket;
+
 const ChatContainer = (props) => {
-	let socket;
 	const [messages, setMessages] = useState([]);
 	const [users, setUsers] = useState([]);
 
@@ -31,8 +33,16 @@ const ChatContainer = (props) => {
 				username: username,
 			});
 
-			socket.on("message", (data) => {
-				addChatItem(data.name, data.message);
+			socket.on("server_message", (data) => {
+				setMessages((prevMessage) => {
+					return [
+						...prevMessage,
+						{
+							name: data.name,
+							message: data.message,
+						},
+					];
+				});
 			});
 
 			socket.on("online_users", (data) => {
@@ -44,16 +54,14 @@ const ChatContainer = (props) => {
 		}
 	}, [props.data.valid]);
 
-	const addChatItem = (name, message) => {
-		setMessages((prevMessage) => {
-			return [
-				...prevMessage,
-				{
-					name: name,
-					message: message,
-				},
-			];
-		});
+	const submitChat = (message) => {
+		console.log(
+			`Attempting to submit message: ${message}`
+		);
+		if (socket) {
+			console.log(`SOCKET EXISTS!`);
+			socket.emit("client_message", message);
+		}
 	};
 
 	//If not connected return nothing.
@@ -100,7 +108,7 @@ const ChatContainer = (props) => {
 						})}
 					</Paper>
 
-					<MessageBar />
+					<MessageBar onSubmit={submitChat} />
 				</Grid>
 
 				<Grid item xs={12} sm={2}>

@@ -1,6 +1,6 @@
 import React from "react";
 
-import { Grid, TextField, Paper } from "@material-ui/core";
+import { Grid, Paper } from "@material-ui/core";
 
 import JoinRoomForm from "./JoinRoomForm";
 import CreateRoomForm from "./CreateRoomForm";

@@ -2,6 +2,7 @@ const port = process.env.PORT || 8080;
 
 const lobbyConnectEvent = require("./events/lobbyConnectEvent");
 const lobbyDisconnectEvent = require("./events/lobbyDisconnectEvent");
+const recieveClientMessageEvent = require("./events/recieveClientMessageEvent");
 
 const handleSockets = (io) => {
 	io.on("connection", (socket) => {
@@ -13,6 +14,10 @@ const handleSockets = (io) => {
 
 		socket.on("disconnect", () => {
 			lobbyDisconnectEvent(io, socket, user);
+		});
+
+		socket.on("client_message", (message) => {
+			recieveClientMessageEvent(io, user, message);
 		});
 	});
 

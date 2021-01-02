@@ -1,7 +1,16 @@
-import React from "react";
+import React, { useState } from "react";
 import { Grid, TextField, Button } from "@material-ui/core";
 
 const MessageBar = (props) => {
+	const [message, setMessage] = useState("");
+
+	const submitForm = () => {
+		if (message === "") return;
+
+		props.onSubmit(message);
+		setMessage("");
+	};
+
 	return (
 		<Grid
 			container
@@ -12,8 +21,17 @@ const MessageBar = (props) => {
 		>
 			<Grid item xs={12} sm={11}>
 				<TextField
+					value={message}
 					style={{
 						width: "100%",
+					}}
+					onInput={(e) => {
+						setMessage(e.target.value);
+					}}
+					onKeyDown={(e) => {
+						if (e.key === "Enter") {
+							submitForm();
+						}
 					}}
 				/>
 			</Grid>
@@ -22,6 +40,7 @@ const MessageBar = (props) => {
 					variant="contained"
 					color="primary"
 					style={{ width: "100%" }}
+					onClick={submitForm}
 				>
 					Send
 				</Button>
