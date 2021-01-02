@@ -47,9 +47,23 @@ const Chat = (props) => {
 	}, []);
 
 	if (!roomData.valid && roomData.connected) {
-		return <Redirect to="/" />;
+		return (
+			<Redirect
+				to={{
+					pathname: "/",
+					state: {
+						error: "Room does not exist.",
+					},
+				}}
+			/>
+		);
 	} else {
-		return <ChatContainer data={roomData} />;
+		return (
+			<ChatContainer
+				data={roomData}
+				username={props.username}
+			/>
+		);
 	}
 };
 

@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-
+import { useHistory } from "react-router-dom";
 import { TextField, Button } from "@material-ui/core";
 
 const JoinRoomForm = () => {
@@ -7,12 +7,20 @@ const JoinRoomForm = () => {
 		username: "",
 		roomID: "",
 	});
+	const history = useHistory();
 
 	const handleFormSubmit = (event) => {
 		event.preventDefault();
 		setRoomDetails({
 			username: "",
 			roomID: "",
+		});
+	};
+
+	const redirectUser = () => {
+		history.push({
+			pathname: `/room/${roomDetails.roomID}`,
+			state: { username: roomDetails.username },
 		});
 	};
 
@@ -62,9 +70,7 @@ const JoinRoomForm = () => {
 					style={{
 						marginTop: 15,
 					}}
-					onClick={() =>
-						alert(JSON.stringify(roomDetails))
-					}
+					onClick={redirectUser}
 				>
 					Submit
 				</Button>

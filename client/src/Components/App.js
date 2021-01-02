@@ -3,7 +3,7 @@ import React from "react";
 import Navbar from "./Navbar/Navbar";
 import RouterController from "./RouterController";
 
-const App = () => {
+const App = (props) => {
 	return (
 		<>
 			<Navbar />

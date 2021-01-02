@@ -25,8 +25,7 @@ const ChatContainer = (props) => {
 			);
 			let lobbyData = props.data.lobbyDetails.data[0];
 
-			let username =
-				prompt("Username") || "Anonymous";
+			let username = props.username;
 
 			socket.emit("lobby_connect", {
 				lobbyID: lobbyData.lobbyID,

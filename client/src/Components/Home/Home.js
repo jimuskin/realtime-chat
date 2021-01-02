@@ -6,7 +6,7 @@ import JoinRoomForm from "./JoinRoomForm";
 import CreateRoomForm from "./CreateRoomForm";
 import ErrorContainer from "./ErrorContainer";
 
-const Home = () => {
+const Home = (props) => {
 	return (
 		<>
 			{/* The grid which handles the form containers.*/}
@@ -38,9 +38,7 @@ const Home = () => {
 				alignItems="center"
 				direction="column"
 			>
-				<ErrorContainer message="Lobby ID does not exist." />
-				<ErrorContainer message="Username is invalid." />
-				<ErrorContainer message="Lobby has closed." />
+				<ErrorContainer message={props.error} />
 			</Grid>
 		</>
 	);

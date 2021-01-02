@@ -10,19 +10,25 @@ import {
 import HomeRouter from "../Routers/HomeRouter";
 import ChatRouter from "../Routers/ChatRouter";
 
-const RouterController = () => {
+const RouterController = (props) => {
 	return (
 		<Router>
 			<Switch>
-				<Route path="/room/:roomId">
-					<ChatRouter />
-				</Route>
+				<Route
+					path="/room/:roomId"
+					render={(props) => (
+						<ChatRouter {...props} />
+					)}
+				/>
 				<Route path="/room">
 					<Redirect to="/" />
 				</Route>
-				<Route path="/">
-					<HomeRouter />
-				</Route>
+				<Route
+					path="/"
+					render={(props) => (
+						<HomeRouter {...props} />
+					)}
+				/>
 			</Switch>
 		</Router>
 	);
