@@ -1,4 +1,7 @@
 .home {
+	padding: 40;
+}
+.home-grid {
 	min-height: 50vh;
 }
 

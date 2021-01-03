@@ -8,7 +8,7 @@ import ErrorContainer from "./ErrorContainer";
 
 const Home = (props) => {
 	return (
-		<div style={{ padding: 40 }}>
+		<div className="home">
 			{/* The grid which handles the form containers.*/}
 			<Grid
 				container
@@ -16,7 +16,7 @@ const Home = (props) => {
 				direction="row"
 				justify="center"
 				alignItems="center"
-				className="home"
+				className="home-grid"
 			>
 				<Grid item>
 					<Paper>
