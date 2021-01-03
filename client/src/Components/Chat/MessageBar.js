@@ -1,6 +1,8 @@
 import React, { useState } from "react";
 import { Grid, TextField, Button } from "@material-ui/core";
 
+import "./Style.css";
+
 const MessageBar = (props) => {
 	const [message, setMessage] = useState("");
 
@@ -12,19 +14,11 @@ const MessageBar = (props) => {
 	};
 
 	return (
-		<Grid
-			container
-			spacing={2}
-			style={{
-				marginTop: "10px",
-			}}
-		>
+		<Grid container spacing={2} className="message-bar">
 			<Grid item xs={12} sm={11}>
 				<TextField
 					value={message}
-					style={{
-						width: "100%",
-					}}
+					className="input"
 					onInput={(e) => {
 						setMessage(e.target.value);
 					}}
@@ -39,7 +33,7 @@ const MessageBar = (props) => {
 				<Button
 					variant="contained"
 					color="primary"
-					style={{ width: "100%" }}
+					className="input"
 					onClick={submitForm}
 				>
 					Send

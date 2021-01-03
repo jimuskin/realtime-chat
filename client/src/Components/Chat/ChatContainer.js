@@ -11,6 +11,8 @@ import MessageBar from "./MessageBar";
 import { useEffect, useState } from "react";
 import socketio from "socket.io-client";
 
+import "./Style.css";
+
 //Socket which will be initialized in useEffect. Used to emit messages.
 var socket;
 
@@ -71,29 +73,13 @@ const ChatContainer = (props) => {
 	const lobbyData = props.data.lobbyDetails.data[0];
 
 	return (
-		<div style={{ padding: 15 }}>
-			<Paper
-				style={{
-					textAlign: "center",
-				}}
-			>
-				<h1
-					style={{
-						padding: "10px",
-					}}
-				>
-					{lobbyData.lobbyName}
-				</h1>
+		<div className="body">
+			<Paper className="lobbyName">
+				<h1>{lobbyData.lobbyName}</h1>
 			</Paper>
 			<Grid container spacing={2}>
 				<Grid item xs={12} sm={10}>
-					<Paper
-						style={{
-							height: "70vh",
-							overflow: "auto",
-							backgroundColor: "#F1F1F1",
-						}}
-					>
+					<Paper className="chat container">
 						{messages.map((message, id) => {
 							return (
 								<ChatMessage
@@ -111,21 +97,8 @@ const ChatContainer = (props) => {
 				</Grid>
 
 				<Grid item xs={12} sm={2}>
-					<Paper
-						style={{
-							height: "70vh",
-							overflow: "auto",
-						}}
-					>
-						<h1
-							style={{
-								textAlign: "center",
-								borderBottom:
-									"1px solid grey",
-							}}
-						>
-							Online Users
-						</h1>
+					<Paper className="online-users container">
+						<h1>Online Users</h1>
 						{users.map((user, id) => {
 							return (
 								<OnlineUser

@@ -1,0 +1,59 @@
+.body {
+	padding: 15px;
+}
+
+.lobbyName {
+	text-align: center;
+}
+.lobbyName h1 {
+	padding: 10px;
+}
+
+.container {
+	height: 70vh;
+	overflow: auto;
+}
+
+.chat {
+	background-color: #f1f1f1 !important;
+}
+
+.online-users {
+	padding-left: 15px;
+	padding-right: 15px;
+	padding-top: 5px;
+	padding-bottom: 5px;
+}
+
+.online-users h1 {
+	text-align: center;
+	border-bottom: 1px solid grey;
+}
+
+.online-users p {
+	margin: 0;
+}
+
+.chat-message {
+	border: 1px solid #cdcdcd;
+	padding-left: 15px;
+}
+
+.chat-message .username {
+	margin-top: 5px;
+	margin-bottom: 5px;
+	font-size: 11px;
+	font-weight: bold;
+}
+.chat-message .message {
+	margin-top: 0px;
+	margin-bottom: 5px;
+	font-size: 16px;
+}
+
+.message-bar {
+	margin-top: 10px !important;
+}
+.message-bar .input {
+	width: 100%;
+}
