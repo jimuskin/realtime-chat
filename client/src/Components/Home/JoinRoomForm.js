@@ -15,6 +15,8 @@ const JoinRoomForm = () => {
 			username: "",
 			roomID: "",
 		});
+
+		redirectUser();
 	};
 
 	const redirectUser = () => {
@@ -70,7 +72,6 @@ const JoinRoomForm = () => {
 					style={{
 						marginTop: 15,
 					}}
-					onClick={redirectUser}
 				>
 					Submit
 				</Button>
