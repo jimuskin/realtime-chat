@@ -16,7 +16,7 @@ const Home = (props) => {
 				direction="row"
 				justify="center"
 				alignItems="center"
-				style={{ minHeight: "50vh" }}
+				className="home"
 			>
 				<Grid item>
 					<Paper>

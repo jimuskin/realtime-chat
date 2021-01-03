@@ -75,12 +75,7 @@ const CreateRoomForm = () => {
 	return (
 		<>
 			<form
-				style={{
-					paddingTop: 10,
-					paddingBottom: 20,
-					marginLeft: 50,
-					marginRight: 50,
-				}}
+				className="home-container"
 				onSubmit={handleFormSubmit}
 			>
 				<h1>Create Room</h1>
@@ -114,9 +109,7 @@ const CreateRoomForm = () => {
 					variant="contained"
 					color="primary"
 					type="submit"
-					style={{
-						marginTop: 15,
-					}}
+					className="input"
 				>
 					Create
 				</Button>
