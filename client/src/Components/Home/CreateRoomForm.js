@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-
+import { useHistory } from "react-router-dom";
 import { TextField, Button, Grid } from "@material-ui/core";
 
 const CreateRoomForm = () => {
@@ -7,6 +7,7 @@ const CreateRoomForm = () => {
 		username: "",
 		roomName: "",
 	});
+	const history = useHistory();
 
 	const handleFormSubmit = (event) => {
 		event.preventDefault();
@@ -14,6 +15,64 @@ const CreateRoomForm = () => {
 			username: "",
 			roomName: "",
 		});
+
+		createNewRoom();
+	};
+
+	const createNewRoom = () => {
+		const bodyParams = {
+			roomName: roomDetails.roomName,
+		};
+
+		//Convert body params into urlencoded format.
+		const formBody = Object.keys(bodyParams)
+			.map((key) => {
+				return (
+					encodeURIComponent(key) +
+					"=" +
+					encodeURIComponent(bodyParams[key])
+				);
+			})
+			.join("&");
+
+		//Make request to create lobby.
+		fetch(
+			`http://${process.env.REACT_APP_EXPRESS_SERVER_URL}/room/create`,
+			{
+				headers: {
+					Accept: "application/json",
+					"Content-Type":
+						"application/x-www-form-urlencoded;charset=UTF-8",
+				},
+				method: "POST",
+				body: formBody,
+			}
+		)
+			.then((response) => {
+				if (!response.ok) {
+					throw new Error(response.status);
+				} else {
+					return response.json();
+				}
+			})
+			.then((data) => {
+				console.log(data);
+				history.push({
+					pathname: `/room/${data.data.lobbyID}`,
+					state: {
+						username: roomDetails.username,
+					},
+				});
+			})
+			.catch((err) => {
+				history.push({
+					pathname: `/`,
+					state: {
+						error:
+							"An unexpected server error has occurred.",
+					},
+				});
+			});
 	};
 
 	return (
@@ -61,9 +120,6 @@ const CreateRoomForm = () => {
 					style={{
 						marginTop: 15,
 					}}
-					onClick={() =>
-						alert(JSON.stringify(roomDetails))
-					}
 				>
 					Create
 				</Button>

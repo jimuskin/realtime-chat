@@ -22,7 +22,7 @@ const setupExpress = () => {
 			);
 			res.header(
 				"Access-Control-Allow-Headers",
-				"Content-Type"
+				"Origin, X-Requested-With, Content-Type, Accept"
 			);
 
 			next();
