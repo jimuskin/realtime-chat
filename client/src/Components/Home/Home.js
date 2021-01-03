@@ -8,7 +8,7 @@ import ErrorContainer from "./ErrorContainer";
 
 const Home = (props) => {
 	return (
-		<>
+		<div style={{ padding: 40 }}>
 			{/* The grid which handles the form containers.*/}
 			<Grid
 				container
@@ -40,7 +40,7 @@ const Home = (props) => {
 			>
 				<ErrorContainer message={props.error} />
 			</Grid>
-		</>
+		</div>
 	);
 };
 
