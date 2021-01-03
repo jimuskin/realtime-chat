@@ -24,6 +24,8 @@ const CreateRoomForm = () => {
 			roomName: roomDetails.roomName,
 		};
 
+		const newRoomURL = `http://${process.env.REACT_APP_EXPRESS_SERVER_URL}/room/create`;
+
 		//Convert body params into urlencoded format.
 		const formBody = Object.keys(bodyParams)
 			.map((key) => {
@@ -36,9 +38,8 @@ const CreateRoomForm = () => {
 			.join("&");
 
 		//Make request to create lobby.
-		fetch(
-			`http://${process.env.REACT_APP_EXPRESS_SERVER_URL}/room/create`,
-			{
+		const postLobby = async () => {
+			const response = await fetch(newRoomURL, {
 				headers: {
 					Accept: "application/json",
 					"Content-Type":
@@ -46,33 +47,29 @@ const CreateRoomForm = () => {
 				},
 				method: "POST",
 				body: formBody,
-			}
-		)
-			.then((response) => {
-				if (!response.ok) {
-					throw new Error(response.status);
-				} else {
-					return response.json();
-				}
-			})
-			.then((data) => {
-				console.log(data);
-				history.push({
-					pathname: `/room/${data.data.lobbyID}`,
-					state: {
-						username: roomDetails.username,
-					},
-				});
-			})
-			.catch((err) => {
-				history.push({
-					pathname: `/`,
-					state: {
-						error:
-							"An unexpected server error has occurred.",
-					},
-				});
 			});
+
+			if (!response.ok) {
+				throw new Error(response.status);
+			}
+
+			const data = await response.json();
+			history.push({
+				pathname: `/room/${data.data.lobbyID}`,
+				state: {
+					username: roomDetails.username,
+				},
+			});
+		};
+
+		postLobby().catch((error) => {
+			history.push({
+				pathname: `/`,
+				state: {
+					error: `An unexpected server error has occurred (Status Code: ${error.status})`,
+				},
+			});
+		});
 	};
 
 	return (
