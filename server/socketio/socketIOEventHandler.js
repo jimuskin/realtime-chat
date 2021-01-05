@@ -9,15 +9,15 @@ const handleSockets = (io) => {
 		var user = { lobbyID: "", username: "" };
 
 		socket.on("lobby_connect", (data) => {
-			lobbyConnectEvent(io, socket, data, user);
+			lobbyConnectEvent(socket, data, user);
 		});
 
 		socket.on("disconnect", () => {
-			lobbyDisconnectEvent(io, socket, user);
+			lobbyDisconnectEvent(socket, user);
 		});
 
 		socket.on("client_message", (message) => {
-			recieveClientMessageEvent(io, user, message);
+			recieveClientMessageEvent(user, message);
 		});
 	});
 

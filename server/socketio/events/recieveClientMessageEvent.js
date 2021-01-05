@@ -1,7 +1,7 @@
 const emitMessage = require("../controllers/emitMessage");
 
-const recieveClientMessageEvent = (io, user, message) => {
-	emitMessage(io, user.lobbyID, {
+const recieveClientMessageEvent = (user, message) => {
+	emitMessage(user.lobbyID, {
 		name: user.username,
 		message: message,
 	});

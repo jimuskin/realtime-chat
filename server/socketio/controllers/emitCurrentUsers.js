@@ -1,6 +1,8 @@
 const roomManager = require("../socketIORoomManager");
+const ioConnection = require("./ioConnection");
 
-const emitCurrentUsers = (io, lobby) => {
+const emitCurrentUsers = (lobby) => {
+	let io = ioConnection.io();
 	let usernames = [];
 
 	const users = roomManager.getUsers(lobby);

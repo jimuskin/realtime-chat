@@ -3,7 +3,7 @@ const emitMessage = require("../controllers/emitMessage");
 
 const roomManager = require("../socketIORoomManager");
 
-const lobbyConnectEvent = (io, socket, data, user) => {
+const lobbyConnectEvent = (socket, data, user) => {
 	//Internal referencing of user data.
 	user.lobbyID = data.lobbyID;
 	user.username = data.username;
@@ -15,12 +15,12 @@ const lobbyConnectEvent = (io, socket, data, user) => {
 	//Add the socket to internal room handler.
 	roomManager.connectUser(data.lobbyID, socket);
 
-	emitMessage(io, data.lobbyID, {
+	emitMessage(data.lobbyID, {
 		name: "Lobby",
 		message: `${user.username} has connected.`,
 	});
 
-	emitCurrentUsers(io, data.lobbyID);
+	emitCurrentUsers(data.lobbyID);
 };
 
 module.exports = lobbyConnectEvent;
