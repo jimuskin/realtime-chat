@@ -19,8 +19,12 @@ const createLobby = (req, res) => {
 			return;
 		}
 
+		const { lobbyID, lobbyName, createdAt } = lobbyData;
+
 		return res.status(200).json({
-			data: lobbyData,
+			lobbyID: lobbyID,
+			lobbyName: lobbyName,
+			createdAt: createdAt,
 		});
 	});
 };
