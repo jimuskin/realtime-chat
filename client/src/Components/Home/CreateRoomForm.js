@@ -55,7 +55,7 @@ const CreateRoomForm = () => {
 
 			const data = await response.json();
 			history.push({
-				pathname: `/room/${data.data.lobbyID}`,
+				pathname: `/room/${data.lobbyID}`,
 				state: {
 					username: roomDetails.username,
 				},
