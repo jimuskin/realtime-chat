@@ -1,5 +1,7 @@
 const mongoose = require("mongoose");
 
+const startLobbyDeleteTimer = require("../mongo/lobbyDeleteTimer");
+
 const connectionDetails = {
 	useNewUrlParser: true,
 	useUnifiedTopology: true,
@@ -20,6 +22,8 @@ const setupMongo = async () => {
 			console.log(
 				"Successfully connected to MongoDB"
 			);
+
+			startLobbyDeleteTimer();
 			resolve(true);
 		});
 	});

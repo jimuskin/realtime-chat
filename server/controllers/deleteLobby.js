@@ -1,11 +1,8 @@
-const randomstring = require("randomstring");
-
 const lobbySchema = require("../mongo/Schemas/lobbySchema");
+const deleteLobbyFromDatabase = require("../mongo/controllers/deleteLobbyFromDatabase");
 
 const deleteLobby = (req, res) => {
 	const roomID = req.body.roomID;
-
-	console.log(roomID);
 
 	if (!roomID) {
 		res.status(404).json({
@@ -14,29 +11,22 @@ const deleteLobby = (req, res) => {
 		return;
 	}
 
-	lobbySchema.deleteOne(
-		{ lobbyID: roomID },
-		(error, lobbyData) => {
-			if (error) {
-				res.status(500).json({
-					error: "An unexpected error occurred.",
-				});
-				return;
-			}
+	const deleteLobbyFromDB = async () => {
+		const {
+			statusCode,
+			message,
+		} = await deleteLobbyFromDatabase(roomID);
 
-			if (lobbyData.deletedCount == 0) {
-				res.status(404).json({
-					message: `Unable to find lobby ID (${roomID})`,
-				});
-				return;
-			} else if (lobbyData.deletedCount > 0) {
-				res.status(200).json({
-					success: true,
-				});
-				return;
-			}
-		}
-	);
+		res.status(statusCode).json({
+			message: message,
+		});
+	};
+
+	deleteLobbyFromDB().catch((error) => {
+		res.status(error.statusCode).json({
+			message: error.message,
+		});
+	});
 };
 
 module.exports = deleteLobby;
