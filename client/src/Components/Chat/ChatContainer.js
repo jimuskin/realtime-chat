@@ -80,17 +80,19 @@ const ChatContainer = (props) => {
 			<Grid container spacing={2}>
 				<Grid item xs={12} sm={10}>
 					<Paper className="chat container">
-						{messages.map((message, id) => {
-							return (
-								<ChatMessage
-									key={`message-id-${id}`}
-									name={message.name}
-									message={
-										message.message
-									}
-								/>
-							);
-						})}
+						<div>
+							{messages.map((message, id) => {
+								return (
+									<ChatMessage
+										key={`message-id-${id}`}
+										name={message.name}
+										message={
+											message.message
+										}
+									/>
+								);
+							})}
+						</div>
 					</Paper>
 
 					<MessageBar onSubmit={submitChat} />

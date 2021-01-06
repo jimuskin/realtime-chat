@@ -16,6 +16,12 @@
 
 .chat {
 	background-color: #f1f1f1 !important;
+	overflow: auto;
+	display: flex;
+	flex-direction: column-reverse;
+}
+
+.message-container {
 }
 
 .online-users {
