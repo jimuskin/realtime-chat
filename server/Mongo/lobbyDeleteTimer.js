@@ -1,6 +1,8 @@
 const lobbySchema = require("./Schemas/lobbySchema");
 const deleteLobbyFromDatabase = require("./controllers/deleteLobbyFromDatabase");
 
+const roomManager = require("../socketio/socketIORoomManager");
+
 const lobbyDeleteTimer = () => {
 	const minutesMultiplier = 60000;
 
@@ -19,26 +21,30 @@ const lobbyDeleteTimer = () => {
 			data.forEach((lobby) => {
 				let lobbyID = lobby.lobbyID;
 
-				const deleteLobbyFromDB = async () => {
-					const {
-						statusCode,
-					} = await deleteLobbyFromDatabase(
-						lobbyID
-					);
+				const users = roomManager.getUsers(lobbyID);
 
-					console.log(
-						`Deleted Lobby (${lobbyID}) (Status code: ${statusCode})`
+				if (!users) {
+					deleteLobbyFromDB(lobbyID).catch(
+						(error) => {
+							console.log(
+								`An error occurred when deleting Lobby (${lobbyID}): ${error.message}`
+							);
+						}
 					);
-				};
-
-				deleteLobbyFromDB().catch((error) => {
-					console.log(
-						`An error occurred when deleting Lobby (${lobbyID}): ${error.message}`
-					);
-				});
+				}
 			});
 		});
 	}, process.env.AUTO_EXPIRE_LOBBY * minutesMultiplier);
+};
+
+const deleteLobbyFromDB = async (lobbyID) => {
+	const { statusCode } = await deleteLobbyFromDatabase(
+		lobbyID
+	);
+
+	console.log(
+		`Deleted Lobby (${lobbyID}) (Status code: ${statusCode})`
+	);
 };
 
 module.exports = lobbyDeleteTimer;
