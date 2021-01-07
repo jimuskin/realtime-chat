@@ -9,7 +9,19 @@ const schema = {
 		type: String,
 		require: true,
 	},
-	//Set auto-expire. Will delete lobby after minutes defined in env.
+	messages: {
+		type: [
+			{
+				user: {
+					type: String,
+				},
+				message: {
+					type: String,
+				},
+			},
+		],
+		default: [],
+	},
 	created: {
 		type: Date,
 		default: Date.now,

@@ -5,6 +5,7 @@ const startLobbyDeleteTimer = require("../mongo/lobbyDeleteTimer");
 const connectionDetails = {
 	useNewUrlParser: true,
 	useUnifiedTopology: true,
+	useFindAndModify: false,
 };
 
 const setupMongo = async () => {
