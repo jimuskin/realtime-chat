@@ -1,14 +1,11 @@
-import {
-	Grid,
-	Paper,
-	TextField,
-	Button,
-} from "@material-ui/core";
+import { Grid, Paper } from "@material-ui/core";
 import ChatMessage from "./ChatMessage";
 import OnlineUser from "./OnlineUser";
 import MessageBar from "./MessageBar";
 
 import { useEffect, useState } from "react";
+import { useHistory } from "react-router-dom";
+
 import socketio from "socket.io-client";
 
 import "./Style.css";
@@ -19,6 +16,8 @@ var socket;
 const ChatContainer = (props) => {
 	const [messages, setMessages] = useState([]);
 	const [users, setUsers] = useState([]);
+
+	const history = useHistory();
 
 	useEffect(() => {
 		if (props.data.valid) {
@@ -43,6 +42,15 @@ const ChatContainer = (props) => {
 							message: data.message,
 						},
 					];
+				});
+			});
+
+			socket.on("server_lobby_deleted", (data) => {
+				history.push({
+					pathname: `/`,
+					state: {
+						error: data.message,
+					},
 				});
 			});
 

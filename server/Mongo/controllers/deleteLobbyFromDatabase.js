@@ -1,4 +1,5 @@
 const lobbySchema = require("../Schemas/lobbySchema");
+const emitLobbyDeleted = require("../../socketio/controllers/emitLobbyDeleted");
 
 const deleteLobbyFromDatabase = async (lobbyID) => {
 	return new Promise((resolve, reject) => {
@@ -26,7 +27,10 @@ const deleteLobbyFromDatabase = async (lobbyID) => {
 						message: `LobbyID doesn't exist.`,
 					});
 				} else if (lobbyData.deletedCount > 0) {
-					//TODO: Emit message to currently connected clients.
+					emitLobbyDeleted(lobbyID, {
+						message: "Lobby has closed.",
+					});
+
 					resolve({
 						statusCode: 200,
 						message: "Success.",

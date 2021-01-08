@@ -1,5 +1,5 @@
-const lobbySchema = require("../mongo/Schemas/lobbySchema");
 const deleteLobbyFromDatabase = require("../mongo/controllers/deleteLobbyFromDatabase");
+const emitLobbyDeleted = require("../socketio/controllers/emitLobbyDeleted");
 
 const deleteLobby = (req, res) => {
 	const roomID = req.body.roomID;
