@@ -2,6 +2,7 @@ import { Grid, Paper } from "@material-ui/core";
 import ChatMessage from "./ChatMessage";
 import OnlineUser from "./OnlineUser";
 import MessageBar from "./MessageBar";
+import CloseRoomButton from "./CloseRoomButton";
 
 import { useEffect, useState } from "react";
 import { useHistory } from "react-router-dom";
@@ -82,9 +83,19 @@ const ChatContainer = (props) => {
 
 	return (
 		<div className="body">
-			<Paper className="lobbyName">
-				<h1>{lobbyData.lobbyName}</h1>
-			</Paper>
+			<Grid container spacing={2}>
+				<Grid
+					item
+					xs={12}
+					sm={11}
+					className="lobbyName"
+				>
+					<h1>{lobbyData.lobbyName}</h1>
+				</Grid>
+				<Grid item xs={12} sm={1}>
+					<CloseRoomButton />
+				</Grid>
+			</Grid>
 			<Grid container spacing={2}>
 				<Grid item xs={12} sm={10}>
 					<Paper className="chat container">

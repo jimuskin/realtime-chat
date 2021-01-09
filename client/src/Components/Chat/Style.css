@@ -60,3 +60,7 @@
 .message-bar .input {
 	width: 100%;
 }
+
+.close-room-button {
+	background-color: #dc3545 !important;
+}
