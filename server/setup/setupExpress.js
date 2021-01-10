@@ -18,7 +18,7 @@ const setupExpress = () => {
 			res.header("Access-Control-Allow-Origin", "*");
 			res.header(
 				"Access-Control-Allow-Methods",
-				"GET,PUT,POST,DELETE"
+				"GET,POST"
 			);
 			res.header(
 				"Access-Control-Allow-Headers",

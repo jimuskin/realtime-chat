@@ -93,7 +93,9 @@ const ChatContainer = (props) => {
 					<h1>{lobbyData.lobbyName}</h1>
 				</Grid>
 				<Grid item xs={12} sm={1}>
-					<CloseRoomButton />
+					<CloseRoomButton
+						lobbyID={lobbyData.lobbyID}
+					/>
 				</Grid>
 			</Grid>
 			<Grid container spacing={2}>

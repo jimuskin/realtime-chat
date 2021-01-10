@@ -7,7 +7,7 @@ const router = express.Router();
 
 router.get("/join/:id", getLobby);
 router.post("/create", createLobby);
-router.delete("/delete", deleteLobby);
+router.post("/delete", deleteLobby);
 
 router.use("*", (req, res) => {
 	res.status(404).json({
