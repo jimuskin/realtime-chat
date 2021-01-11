@@ -1,5 +1,6 @@
 const emitCurrentUsers = require("../controllers/emitCurrentUsers");
 const emitMessage = require("../controllers/emitMessage");
+const emitLobbyHistory = require("../controllers/emitLobbyHistory");
 
 const roomManager = require("../socketIORoomManager");
 
@@ -20,6 +21,7 @@ const lobbyConnectEvent = (socket, data, user) => {
 		message: `${user.username} has connected.`,
 	});
 
+	emitLobbyHistory(data.lobbyID, socket);
 	emitCurrentUsers(data.lobbyID);
 };
 

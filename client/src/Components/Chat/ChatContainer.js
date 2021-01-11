@@ -34,6 +34,11 @@ const ChatContainer = (props) => {
 				username: username,
 			});
 
+			socket.on("lobby_history", (data) => {
+				//Server received lobby connect. Retrieve lobby history
+				setMessages(data.messages);
+			});
+
 			socket.on("server_message", (data) => {
 				setMessages((prevMessage) => {
 					return [
