@@ -23,11 +23,6 @@ const retrieveMessageHistoryFromDatabase = async (
 						"An unexpected error occurred.",
 				});
 			}
-
-			//messageHistory = data[0].messages;
-
-			//console.log(data[0]);
-
 			const messages = data[0].messages.toObject();
 
 			let i = 0;
