@@ -1,5 +1,5 @@
-const lobbySchema = require("./Schemas/lobbySchema");
-const deleteLobbyFromDatabase = require("./controllers/deleteLobbyFromDatabase");
+const lobbySchema = require("../mongo/Schemas/lobbySchema");
+const deleteLobbyFromDatabase = require("../mongo/controllers/deleteLobbyFromDatabase");
 
 const roomManager = require("../socketio/socketIORoomManager");
 

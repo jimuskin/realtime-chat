@@ -1,6 +1,6 @@
 const mongoose = require("mongoose");
 
-const startLobbyDeleteTimer = require("../mongo/lobbyDeleteTimer");
+const startLobbyDeleteTimer = require("../timers/lobbyDeleteTimer");
 
 const connectionDetails = {
 	useNewUrlParser: true,
