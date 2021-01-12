@@ -8,17 +8,42 @@ import { useEffect, useState } from "react";
 import { useHistory } from "react-router-dom";
 
 import socketio from "socket.io-client";
-
 import "./Style.css";
 
 //Socket which will be initialized in useEffect. Used to emit messages.
 var socket;
 
 const ChatContainer = (props) => {
+	const secondsMultiplier = 1000;
+
 	const [messages, setMessages] = useState([]);
 	const [users, setUsers] = useState([]);
 
+	const [heartbeat, setHeartbeat] = useState(0);
+
 	const history = useHistory();
+
+	useEffect(() => {
+		setInterval(() => {
+			setHeartbeat((prev) => prev + 1);
+		}, process.env.REACT_APP_HEARTBEAT_INTERVAL * secondsMultiplier);
+	}, []);
+
+	useEffect(() => {
+		console.log(`New Heartbeat: ${heartbeat}`);
+
+		if (
+			heartbeat >=
+			process.env.REACT_APP_HEARTBEAT_MAXIMUM
+		) {
+			history.push({
+				pathname: `/`,
+				state: {
+					error: "You have disconnected.",
+				},
+			});
+		}
+	}, [heartbeat]);
 
 	useEffect(() => {
 		if (props.data.valid) {
@@ -49,6 +74,11 @@ const ChatContainer = (props) => {
 						},
 					];
 				});
+			});
+
+			socket.on("ping", (data) => {
+				console.log(`Ping Heard!`);
+				setHeartbeat(0);
 			});
 
 			socket.on("server_lobby_deleted", (data) => {

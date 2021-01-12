@@ -17,7 +17,12 @@ const lobbyDeleteTimer = () => {
 
 		let query = { created: { $lte: expireDate } };
 
-		lobbySchema.find(query, (err, data) => {
+		lobbySchema.find(query, (error, data) => {
+			if (error) {
+				console.log(error);
+				return;
+			}
+
 			data.forEach((lobby) => {
 				let lobbyID = lobby.lobbyID;
 

@@ -3,6 +3,7 @@ const socketio = require("socket.io");
 
 const ioConnection = require("../socketio/controllers/ioConnection");
 const socketIOEventHandler = require("../socketio/socketIOEventHandler");
+const startLobbyPingTimer = require("../timers/lobbyPingTimer");
 
 const setupSocketIO = async (server) => {
 	return new Promise((resolve, reject) => {
@@ -18,6 +19,9 @@ const setupSocketIO = async (server) => {
 		});
 
 		socketIOEventHandler(io);
+
+		startLobbyPingTimer();
+
 		resolve(true);
 	});
 };
