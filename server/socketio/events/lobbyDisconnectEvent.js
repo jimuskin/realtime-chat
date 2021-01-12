@@ -5,8 +5,6 @@ const emitCurrentUsers = require("../controllers/emitCurrentUsers");
 
 const lobbyDisconnectEvent = (socket, user) => {
 	socket.removeAllListeners();
-	console.log(`${user.username} has disconnected.`);
-
 	roomManager.disconnectUser(user.lobbyID, socket);
 
 	emitMessage(user.lobbyID, {

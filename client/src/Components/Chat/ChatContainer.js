@@ -30,8 +30,6 @@ const ChatContainer = (props) => {
 	}, []);
 
 	useEffect(() => {
-		console.log(`New Heartbeat: ${heartbeat}`);
-
 		if (
 			heartbeat >=
 			process.env.REACT_APP_HEARTBEAT_MAXIMUM
@@ -77,7 +75,6 @@ const ChatContainer = (props) => {
 			});
 
 			socket.on("ping", (data) => {
-				console.log(`Ping Heard!`);
 				setHeartbeat(0);
 			});
 
@@ -100,11 +97,7 @@ const ChatContainer = (props) => {
 	}, [props.data.valid]);
 
 	const submitChat = (message) => {
-		console.log(
-			`Attempting to submit message: ${message}`
-		);
 		if (socket) {
-			console.log(`SOCKET EXISTS!`);
 			socket.emit("client_message", message);
 		}
 	};

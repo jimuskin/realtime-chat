@@ -6,15 +6,11 @@ const setupRedis = require("./setup/setupRedis");
 const setupSocketIO = require("./setup/setupSocketIO");
 
 const setupServer = async () => {
-	console.log("Initiating the setup sequence.");
-
 	//Set up mongoDB connection.
 	let mongoSuccess = await setupMongo();
-	console.log(`Setup Mongo Success? ${mongoSuccess}`);
 
 	//Set up Redis connection.
 	let redisSuccess = await setupRedis();
-	console.log(`Setup Redis Success? ${redisSuccess}`);
 
 	let server = await setupExpress();
 
