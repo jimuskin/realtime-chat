@@ -105,3 +105,4 @@ dist
 
 # Docker Volume file.
 app/
+volume_data/

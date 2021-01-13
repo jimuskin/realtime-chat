@@ -1,0 +1,21 @@
+version: "3"
+services:
+    server:
+        volumes:
+            - "./server:/app/server:cached"
+        command: sh -c "npm run development"
+    client:
+        volumes:
+            - "./client:/app/client:cached"
+        restart: always
+    mongo-express:
+        container_name: "Mongo-Express"
+        image: mongo-express
+        depends_on:
+            - mongo
+        restart: always
+        environment:
+            ME_CONFIG_MONGODB_ADMINUSERNAME: localhost
+            ME_CONFIG_MONGODB_ADMINPASSWORD: password
+        ports:
+            - 8081:8081

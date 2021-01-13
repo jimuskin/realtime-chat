@@ -4,7 +4,8 @@
   "description": "The backend system used for communication",
   "main": "index.js",
   "scripts": {
-    "start": "nodemon index.js --legacy-watch"
+    "production": "node index.js",
+    "development": "nodemon index.js --legacy-watch"
   },
   "author": "jimuskin",
   "license": "ISC",

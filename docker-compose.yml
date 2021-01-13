@@ -10,53 +10,34 @@ services:
             - mongo
             - redis
         working_dir: "/app/server"
-        volumes:
-            - "./server:/app/server:cached"
         ports:
             - "8080:8080"
         env_file:
             - "./server/.env"
         restart: always
-        command: sh -c "npm install && npm start"
+        command: sh -c "npm install && npm run production"
     client:
         container_name: "Client"
         build: "./client"
         working_dir: "/app/client"
-        volumes:
-            - "./client:/app/client:cached"
         ports:
             - "80:3000"
         env_file:
             - "./client/.env"
         restart: always
-        environment:
-            - NODE_ENV=development
-            - CHOKIDAR_USEPOLLING=true
     mongo:
         container_name: "MongoDB"
         image: mongo
         restart: always
-        environment:
-            MONGO_INITDB_ROOT_USERNAME: localhost
-            MONGO_INITDB_ROOT_PASSWORD: password
+        env_file:
+            - ".env"
         volumes:
-            - "./app/mongo-volume:/data/db"
-    mongo-express:
-        container_name: "Mongo-Express"
-        image: mongo-express
-        depends_on:
-            - mongo
-        restart: always
-        ports:
-            - 8081:8081
-        environment:
-            ME_CONFIG_MONGODB_ADMINUSERNAME: localhost
-            ME_CONFIG_MONGODB_ADMINPASSWORD: password
+            - "./volume_data/mongo:/data/db"
     redis:
         container_name: "Redis"
         image: "redis"
         restart: "always"
         volumes:
-            - "./app/redis:/data"
+            - "./volume_data/redis:/data"
         ports:
             - "6379:6379"
