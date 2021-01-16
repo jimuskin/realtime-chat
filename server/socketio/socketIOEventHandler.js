@@ -20,13 +20,6 @@ const handleSockets = (io) => {
 			recieveClientMessageEvent(user, message);
 		});
 	});
-
-	setInterval(() => {
-		io.to("ROOM").emit("message", {
-			name: "Lobby",
-			message: "This is a timed message.",
-		});
-	}, 2000);
 };
 
 module.exports = handleSockets;
