@@ -5,10 +5,8 @@ services:
         build: "./server"
         depends_on:
             - mongo
-            - redis
         links:
             - mongo
-            - redis
         working_dir: "/app/server"
         ports:
             - "8080:8080"
@@ -33,11 +31,3 @@ services:
             - ".env"
         volumes:
             - "./volume_data/mongo:/data/db"
-    redis:
-        container_name: "Redis"
-        image: "redis"
-        restart: "always"
-        volumes:
-            - "./volume_data/redis:/data"
-        ports:
-            - "6379:6379"
